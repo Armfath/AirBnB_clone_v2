@@ -15,22 +15,23 @@ echo "<html>
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
 echo "server {
-    listen 80 default_server;
-    listen [::]:80 default_server ipv6only=on;
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
 
-    root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
+	root /usr/share/nginx/html;
+	index index.html index.htm;
 
-    server_name _;
+	# Make site accessible from http://localhost/
+	server_name localhost;
 
-    location / {
-        try_files $uri $uri/ =404;
-    }
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
 
-    location /hbnb_static/ {
-        alias /data/web_static/current/;
-        autoindex off;
-    }
-}" > /etc/nginx/sites-available/hbnb_static
-ln -sf /etc/nginx/sites-available/hbnb_static /etc/nginx/sites-enabled/
+	location /hbnb_static/ {
+		alias /data/web_static/current/;
+    	}
+}" > /etc/nginx/sites-available/default
 service nginx restart
