@@ -18,7 +18,7 @@ echo "server {
 	listen 80 default_server;
 	listen [::]:80 default_server ipv6only=on;
 
-	root /var/www/html;
+	root /usr/share/nginx/html;
 	index index.html index.htm;
 
 	# Make site accessible from http://localhost/
@@ -27,7 +27,7 @@ echo "server {
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ =404;
+		try_files \$uri \$uri/ =404;
 	}
 
 	location /hbnb_static/ {
