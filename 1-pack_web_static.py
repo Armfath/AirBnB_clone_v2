@@ -6,6 +6,8 @@ import datetime
 
 
 def do_pack():
+    """ Archive web_static
+    """
     now = datetime.datetime.now()
     archive = './version/web_static_{}{}{}{}{}{}.tgz\
     '.format(now.year, now.month, now.day, now.hour, now.minute, now.second)
