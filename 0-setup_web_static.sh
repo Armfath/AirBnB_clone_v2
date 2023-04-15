@@ -18,7 +18,7 @@ echo "server {
 	listen 80 default_server;
 	listen [::]:80 default_server ipv6only=on;
 
-	root /usr/share/nginx/html;
+	root /var/www/html;
 	index index.html index.htm;
 
 	# Make site accessible from http://localhost/
