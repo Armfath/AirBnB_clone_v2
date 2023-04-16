@@ -30,7 +30,7 @@ def do_deploy(archive_path):
     """ Distributes an archive to your web servers
     """
     if os.path.exists(archive_path):
-        archive_name_ext = os.path.basename(archive_path)
+        archive_name_ext = archive_path.split('.')[-1]
         archive_name = archive_name_ext.split('.')[0]
     else:
         return False
