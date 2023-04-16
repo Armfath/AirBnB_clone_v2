@@ -2,6 +2,8 @@
 """ Fabric to deploy an achieve for hbnb_web_static and deploy to eb servers
 """
 from fabric.api import local, env, put, run, settings
+from datetime import datetime
+import os
 
 
 env.hosts = ['100.25.211.4',
@@ -12,7 +14,6 @@ env.user = 'ubuntu'
 def do_pack():
     """ Archive web_static
     """
-    import datetime
     now = datetime.datetime.now()
     archive = './versions/web_static_{}{}{}{}{}{}.tgz\
     '.format(now.year, now.month, now.day, now.hour, now.minute, now.second)
@@ -28,7 +29,6 @@ def do_pack():
 def do_deploy(archive_path):
     """ Distributes an archive to your web servers
     """
-    import os
     if os.path.exists(archive_path):
         archive_name_ext = os.path.basename(archive_path)
         archive_name = archive_name_ext.split('.')[0]
