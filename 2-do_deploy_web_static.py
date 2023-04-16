@@ -37,7 +37,6 @@ def do_deploy(archive_path):
         return False
 
     root = '/data/web_static'
-    put(f'{archive_path}', f'/tmp/{archive_name_e}')
     
     print("New version deployed!")
     return True
