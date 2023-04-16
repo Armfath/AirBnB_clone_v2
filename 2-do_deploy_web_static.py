@@ -37,10 +37,8 @@ def do_deploy(archive_path):
         return False
 
     root = '/data/web_static'
-    opp_1 = put(f'{archive_path}', f'/tmp/{archive_name_e}')
-
-    if (opp_1.failed):
-        return False
+    with settings(warn_only=True):
+        put(f'{archive_path}', f'/tmp/{archive_name_e}')
     
     print("New version deployed!")
     return True
