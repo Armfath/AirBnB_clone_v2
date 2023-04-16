@@ -5,6 +5,8 @@
 from fabric.api import local, put, run, env
 from datetime import datetime
 
+env.hosts = ['100.25.211.4',
+             '100.26.234.235']
 env.user = 'ubuntu'
 
 
@@ -23,7 +25,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """Deploy the boxing package tgz file
+    """Distributes an archive to your web servers
     """
     try:
         archive = archive_path.split('/')[-1]
