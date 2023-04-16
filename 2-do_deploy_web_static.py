@@ -1,17 +1,19 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""Fabric to deploy an achieve for hbnb_web_static and deploy to eb servers
+"""
+Created on Mon Aug 13 14:21:54 2020
+@author: Robinson Montes
 """
 from fabric.api import local, put, run, env
 from datetime import datetime
 
-env.hosts = ['100.25.211.4',
-             '100.26.234.235']
 env.user = 'ubuntu'
+env.hosts = ['35.227.35.75', '100.24.37.33']
 
 
 def do_pack():
-    """Archive web_static
+    """
+    Targginng project directory into a packages as .tgz
     """
     now = datetime.now().strftime("%Y%m%d%H%M%S")
     local('sudo mkdir -p ./versions')
@@ -25,7 +27,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to your web servers
+    """Deploy the boxing package tgz file
     """
     try:
         archive = archive_path.split('/')[-1]
