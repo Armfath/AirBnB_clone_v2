@@ -4,19 +4,18 @@
 """
 from fabric.api import local, put, run, env
 from datetime import datetime
-import os
 
-env.user = 'ubuntu'
 env.hosts = ['100.25.211.4',
              '100.26.234.235']
+env.user = 'ubuntu'
 
 
 def do_pack():
     """Archive web_static
     """
     now = datetime.now().strftime("%Y%m%d%H%M%S")
-    path = './versions/web_static_{}'.format(now)
     local('sudo mkdir -p ./versions')
+    path = './versions/web_static_{}'.format(now)
     local('sudo tar -czvf {}.tgz web_static'.format(path))
     name = '{}.tgz'.format(path)
     if name:
