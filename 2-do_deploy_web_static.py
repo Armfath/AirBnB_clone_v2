@@ -40,7 +40,7 @@ def do_deploy(archive_path):
     with settings(warn_only=True):
         """ Test if any error occur
         """
-
+        # Upload the archive to the remote server
         opp_1 = put(f'{archive_path}', f'/tmp/{archive_name_e}')
 
     print("New version deployed!")
