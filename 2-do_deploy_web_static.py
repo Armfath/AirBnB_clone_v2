@@ -37,6 +37,10 @@ def do_deploy(archive_path):
         return False
 
     root = '/data/web_static'
+    with settings(warn_only=True):
+        """ Test if any error occur
+        """
+        pass
 
     print("New version deployed!")
     return True
