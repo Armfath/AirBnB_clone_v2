@@ -36,25 +36,24 @@ def do_deploy(archive_path):
         return False
 
     path = '/data/web_static/releases/{}'.format(archive_name)
-    with settings(warn_only=True):
-        opp_1 = put('{}'.format(archive_path), '/tmp/')
-        opp_2 = run('mkdir -p {}/'.format(path))
-        opp_3 = run('tar -xzf /tmp/{} -C {}/'.format(archive_name_ext, path))
-        opp_4 = run('rm /tmp/{}'.format(archive_name_ext))
-        opp_5 = run('mv {}/web_static/* {}/'.format(path, path))
-        opp_6 = run('rm -rf {}/web_static'.format(path))
-        opp_7 = run('rm -rf /data/web_static/current')
-        opp_8 = run('ln -s {}/ /data/web_static/current'.format(path))
+    opp_1 = put('{}'.format(archive_path), '/tmp/')
+    opp_2 = run('mkdir -p {}/'.format(path))
+    opp_3 = run('tar -xzf /tmp/{} -C {}/'.format(archive_name_ext, path))
+    opp_4 = run('rm /tmp/{}'.format(archive_name_ext))
+    opp_5 = run('mv {}/web_static/* {}/'.format(path, path))
+    opp_6 = run('rm -rf {}/web_static'.format(path))
+    opp_7 = run('rm -rf /data/web_static/current')
+    opp_8 = run('ln -s {}/ /data/web_static/current'.format(path))
 
-        if (opp_1.failed or
-                opp_2.failed or
-                opp_3.failed or
-                opp_4.failed or
-                opp_5.failed or
-                opp_6.failed or
-                opp_7.failed or
-                opp_8.failed):
-            return False
+    if (opp_1.failed or
+            opp_2.failed or
+            opp_3.failed or
+            opp_4.failed or
+            opp_5.failed or
+            opp_6.failed or
+            opp_7.failed or
+            opp_8.failed):
+        return False
 
     print("New version deployed!")
     return True
