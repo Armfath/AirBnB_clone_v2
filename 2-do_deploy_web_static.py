@@ -6,7 +6,8 @@ from fabric.api import local, put, run, env
 from datetime import datetime
 
 env.user = 'ubuntu'
-env.hosts = ['35.227.35.75', '100.24.37.33']
+env.hosts = ['100.25.211.4',
+             '100.26.234.235']
 
 
 def do_pack():
@@ -14,10 +15,10 @@ def do_pack():
     """
     now = datetime.now().strftime("%Y%m%d%H%M%S")
     path = './versions/web_static_{}'.format(now)
-    local('sudo mkdir -p ./versions && \
+    create_archive = local('sudo mkdir -p ./versions && \
           sudo tar -czvf {}.tgz web_static'.format(path))
     name = '{}.tgz'.format(path)
-    if name:
+    if create_archive.return_code == 0:
         return name
     else:
         return None
