@@ -13,9 +13,9 @@ def do_pack():
     """Archive web_static
     """
     now = datetime.now().strftime("%Y%m%d%H%M%S")
-    local('sudo mkdir -p ./versions')
     path = './versions/web_static_{}'.format(now)
-    local('sudo tar -czvf {}.tgz web_static'.format(path))
+    local('sudo mkdir -p ./versions && \
+          sudo tar -czvf {}.tgz web_static'.format(path))
     name = '{}.tgz'.format(path)
     if name:
         return name
