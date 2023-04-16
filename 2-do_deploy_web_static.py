@@ -19,7 +19,7 @@ def do_pack():
     local('sudo mkdir -p ./versions')
     local('sudo tar -czvf {}.tgz web_static'.format(path))
     name = '{}.tgz'.format(path)
-    if os.path.exists(name):
+    if name:
         return name
     else:
         return None
