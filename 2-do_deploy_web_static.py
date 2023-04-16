@@ -37,11 +37,26 @@ def do_deploy(archive_path):
         return False
 
     root = '/data/web_static'
-    with settings(warn_only=True):
-        """ Test if any error occur
-        """
-        # Upload the archive to the remote server
-        opp_1 = put(f'{archive_path}', f'/tmp/{archive_name_e}')
+    opp_1 = put(f'{archive_path}', f'/tmp/{archive_name_e}')
+    opp_2 = run(f'mkdir -p {root}/releases/{archive_name}/')
+    opp_3 = run(f'tar -xzf /tmp/{archive_name_e}\
+                -C {root}/releases/{archive_name}/')
+    opp_4 = run(f'rm /tmp/{archive_name_e}')
+    opp_5 = run(f'mv {root}/releases/{archive_name}/web_static/*\
+                {root}/releases/{archive_name}/')
+    opp_6 = run(f'rm -rf {root}/releases/{archive_name}/web_static')
+    opp_7 = run(f'rm -rf {root}/current')
+    opp_8 = run(f'ln -s {root}/releases/{archive_name}/ {root}/current')
 
+    if (opp_1.failed or
+            opp_2.failed or
+            opp_3.failed or
+            opp_4.failed or
+            opp_5.failed or
+            opp_6.failed or
+            opp_7.failed or
+            opp_8.failed):
+        return False
+    
     print("New version deployed!")
     return True
