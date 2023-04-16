@@ -1,24 +1,22 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 13 14:21:54 2020
-@author: Robinson Montes
+"""Fabric to deploy an achieve for hbnb_web_static and deploy to eb servers
 """
 from fabric.api import local, put, run, env
 from datetime import datetime
 
+env.hosts = ['100.25.211.4',
+             '100.26.234.235']
 env.user = 'ubuntu'
-env.hosts = ['35.227.35.75', '100.24.37.33']
 
 
 def do_pack():
-    """
-    Targginng project directory into a packages as .tgz
+    """Archive web_static
     """
     now = datetime.now().strftime("%Y%m%d%H%M%S")
-    local('sudo mkdir -p ./versions')
+    local('mkdir -p ./versions')
     path = './versions/web_static_{}'.format(now)
-    local('sudo tar -czvf {}.tgz web_static'.format(path))
+    local('tar -czvf {}.tgz web_static'.format(path))
     name = '{}.tgz'.format(path)
     if name:
         return name
@@ -27,7 +25,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """Deploy the boxing package tgz file
+    """Distributes an archive to your web servers
     """
     try:
         archive = archive_path.split('/')[-1]
