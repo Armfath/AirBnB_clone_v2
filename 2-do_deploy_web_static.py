@@ -58,3 +58,6 @@ def do_deploy(archive_path):
                 opp_7.failed or
                 opp_8.failed):
             return False
+    
+    print("New version deployed!")
+    return True
