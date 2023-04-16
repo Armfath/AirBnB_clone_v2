@@ -38,7 +38,7 @@ def do_deploy(archive_path):
 
     root = '/data/web_static'
     try:
-        put(f'{archive_path}', f'/tmp/{archive_name_e}')
+        put(f"{archive_path}", f"/tmp/{archive_name_e}")
     except:
         return False
 
