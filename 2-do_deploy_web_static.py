@@ -27,7 +27,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """ distributes an archive to your web servers,
+    """ Distributes an archive to your web servers
     """
     import os
     if os.path.exists(archive_path):
@@ -38,8 +38,6 @@ def do_deploy(archive_path):
 
     root = '/data/web_static'
     with settings(warn_only=True):
-        """ Check if any error occur
-        """
         opp_1 = put(f'{archive_path}', f'/tmp/{archive_name_e}')
         opp_2 = run(f'mkdir -p {root}/releases/{archive_name}/')
         opp_3 = run(f'tar -xzf /tmp/{archive_name_e}\
