@@ -31,16 +31,31 @@ def do_deploy(archive_path):
     """
     import os
     if os.path.exists(archive_path):
-        archive_name_e = os.path.basename(archive_path)
-        archive_name = archive_name_e.split('.')[0]
+        archive_name_ext = os.path.basename(archive_path)
+        archive_name = archive_name_ext.split('.')[0]
     else:
         return False
 
-    root = '/data/web_static'
-    try:
-        put(f"{archive_path}", f"/tmp/{archive_name_e}")
-    except:
-        return False
+    path = '/data/web_static/releases/{}'.format(archive_name)
+    with settings(warn_only=True):
+        opp_1 = put('{}'.format(archive_path), '/tmp/')
+        opp_2 = run('mkdir -p {}/'.format(path))
+        opp_3 = run('tar -xzf /tmp/{} -C {}/'.format(archive_name_ext, path))
+        opp_4 = run('rm /tmp/{}'.format(archive_name_ext))
+        opp_5 = run('mv {}/web_static/* {}/'.format(path, path))
+        opp_6 = run('rm -rf {}/web_static'.format(path))
+        opp_7 = run('rm -rf /data/web_static/current')
+        opp_8 = run('ln -s {}/ /data/web_static/current'.format(path))
+
+        if (opp_1.failed or
+                opp_2.failed or
+                opp_3.failed or
+                opp_4.failed or
+                opp_5.failed or
+                opp_6.failed or
+                opp_7.failed or
+                opp_8.failed):
+            return False
 
     print("New version deployed!")
     return True
