@@ -1,32 +1,33 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-""" Fabric to deploy an achieve for hbnb_web_static and deploy to eb servers
+"""
+Created on Mon Aug 13 14:21:54 2020
+@author: Robinson Montes
 """
 from fabric.api import local, put, run, env
 from datetime import datetime
 
-env.hosts = ['100.25.211.4',
-             '100.26.234.235']
 env.user = 'ubuntu'
+env.hosts = ['35.227.35.75', '100.24.37.33']
 
 
 def do_pack():
-    """ Archive web_static
     """
-    now = datetime.datetime.now()
-    archive = './versions/web_static_{}{}{}{}{}{}.tgz\
-    '.format(now.year, now.month, now.day, now.hour, now.minute, now.second)
-    to_archive = './web_static'
-    create_archive = local('mkdir -p versions && tar -czvf {} {}'
-                           .format(archive, to_archive))
-    if (create_archive.return_code == 0):
-        return (archive)
+    Targginng project directory into a packages as .tgz
+    """
+    now = datetime.now().strftime("%Y%m%d%H%M%S")
+    local('sudo mkdir -p ./versions')
+    path = './versions/web_static_{}'.format(now)
+    local('sudo tar -czvf {}.tgz web_static'.format(path))
+    name = '{}.tgz'.format(path)
+    if name:
+        return name
     else:
         return None
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to your web servers
+    """Deploy the boxing package tgz file
     """
     try:
         archive = archive_path.split('/')[-1]
@@ -44,3 +45,4 @@ def do_deploy(archive_path):
         return True
     except:
         return False
+    
