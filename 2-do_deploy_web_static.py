@@ -41,7 +41,6 @@ def do_deploy(archive_path):
         """ Test if any error occur
         """
 
-
         opp_1 = put(f'{archive_path}', f'/tmp/{archive_name_e}')
 
     print("New version deployed!")
