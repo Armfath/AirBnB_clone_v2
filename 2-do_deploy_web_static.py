@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Fabric to create an achieve for hbnb_web_static
+""" Fabric to deploy an achieve for hbnb_web_static and deploy to eb servers
 """
 from fabric.api import local, env, put, run, settings
 
@@ -27,7 +27,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """distributes an archive to your web servers,
+    """ distributes an archive to your web servers,
     """
     import os
     if os.path.exists(archive_path):
