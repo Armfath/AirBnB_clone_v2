@@ -3,6 +3,7 @@
 """
 from fabric.api import local, env, put, run, settings
 from datetime import datetime
+import os
 
 
 env.hosts = ['100.25.211.4',
@@ -29,4 +30,8 @@ def do_pack():
 def do_deploy(archive_path):
     """ Distributes an archive to your web servers
     """
-    pass
+    if os.path.exists(archive_path):
+        archive_name_e = os.path.basename(archive_path)
+        archive_name = archive_name_e.split('.')[0]
+    else:
+        return False
