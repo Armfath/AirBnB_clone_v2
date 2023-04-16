@@ -4,6 +4,7 @@
 """
 from fabric.api import local, put, run, env
 from datetime import datetime
+import os
 
 env.user = 'ubuntu'
 env.hosts = ['100.25.211.4',
@@ -15,10 +16,10 @@ def do_pack():
     """
     now = datetime.now().strftime("%Y%m%d%H%M%S")
     path = './versions/web_static_{}'.format(now)
-    create_archive = local('sudo mkdir -p ./versions && \
+    local('sudo mkdir -p ./versions && \
           sudo tar -czvf {}.tgz web_static'.format(path))
     name = '{}.tgz'.format(path)
-    if create_archive.return_code == 0:
+    if os.path.exists(name):
         return name
     else:
         return None
