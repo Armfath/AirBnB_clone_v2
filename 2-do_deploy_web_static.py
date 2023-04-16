@@ -38,16 +38,7 @@ def do_deploy(archive_path):
 
     root = '/data/web_static'
     try:
-        put(f'{archive_path}', f'/tmp/{archive_name_e}')
-        run(f'mkdir -p {root}/releases/{archive_name}/')
-        run(f'tar -xzf /tmp/{archive_name_e}\
-                -C {root}/releases/{archive_name}/')
-        run(f'rm /tmp/{archive_name_e}')
-        run(f'mv {root}/releases/{archive_name}/web_static/*\
-                {root}/releases/{archive_name}/')
-        run(f'rm -rf {root}/releases/{archive_name}/web_static')
-        run(f'rm -rf {root}/current')
-        run(f'ln -s {root}/releases/{archive_name}/ {root}/current')
+        put('{}'.format(archive_path), '/tmp/{}'.format(archive_name_e))
     except:
         return False
 
