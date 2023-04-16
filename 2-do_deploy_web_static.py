@@ -35,3 +35,19 @@ def do_deploy(archive_path):
         archive_name = archive_name_e.split('.')[0]
     else:
         return False
+
+    root = '/data/web_static'
+    with settings(warn_only=True):
+        opp_1 = put(f'{archive_path}', f'/tmp/{archive_name_e}')
+        opp_2 = run(f'mkdir -p {root}/releases/{archive_name}/')
+        opp_3 = run(f'tar -xzf /tmp/{archive_name_e}\
+                    -C {root}/releases/{archive_name}/')
+        opp_4 = run(f'rm /tmp/{archive_name_e}')
+        opp_5 = run(f'mv {root}/releases/{archive_name}/web_static/*\
+                    {root}/releases/{archive_name}/')
+        opp_6 = run(f'rm -rf {root}/releases/{archive_name}/web_static')
+        opp_7 = run(f'rm -rf {root}/current')
+        opp_8 = run(f'ln -s {root}/releases/{archive_name}/ {root}/current')
+
+    print("New version deployed!")
+    return True
