@@ -35,7 +35,9 @@ def render_py(text='is_cool'):
 @app.route('/number/<n>', strict_slashes=False)
 def render_number(n=None):
     if not n.isdigit():
-        n = None
+        if not (n[0] in ['-', '+'] and n[1:].isdigit()):
+            del n
+        n = int(n)
     return render_template_string('{{ content }} is a number', content=n)
 
 
