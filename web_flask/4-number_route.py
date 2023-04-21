@@ -32,13 +32,12 @@ def render_py(text='is_cool'):
     return render_template_string('Python {{ content }}', content=f_text)
 
 
-@app.route('/number/<int: n>', strict_slashes=False)
+@app.route('/number/<n>', strict_slashes=False)
 def render_number(n=None):
-    try:
-        n = int(n)
-        return render_template_string('{{ content }} is a number', content=n)
-    except ValueError:
-        return
+    if not n.isdigit():
+        if not (n[0] in ['-', '+'] and n[1:].isdigit()):
+            return
+    return render_template_string('{{ content }} is a number', content=n)
 
 
 if __name__ == '__main__':
