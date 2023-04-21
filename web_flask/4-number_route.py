@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Basic Flask web application
 """
-from flask import Flask, render_template_string
+from flask import Flask, render_template_string, abort
 app = Flask(__name__)
 
 
@@ -36,9 +36,9 @@ def render_py(text='is_cool'):
 def render_number(n=None):
     try:
         n = int(n)
-        return render_template_string('{{ content }} is a number', content=n)
+        return "{} is a number".format(n)
     except:
-        return 
+        abort(404) 
 
 
 if __name__ == '__main__':
