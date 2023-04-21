@@ -36,7 +36,7 @@ def render_py(text='is_cool'):
 def render_number(n=None):
     try:
         n = int(n)
-        render_template_string('{{ content }} is a number', content=n)
+        return render_template_string('{{ content }} is a number', content=n)
     except:
         return 
 
