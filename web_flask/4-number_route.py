@@ -37,7 +37,7 @@ def render_number(n=None):
     try:
         n = int(n)
         return render_template_string('{{ content }} is a number', content=n)
-    except:
+    except ValueError:
         return
 
 
