@@ -37,7 +37,6 @@ def render_number(n=None):
     if not n.isdigit():
         if not (n[0] in ['-', '+'] and n[1:].isdigit()):
             n = None
-        n = int(n)
     return render_template_string('{{ content }} is a number', content=n)
 
 
