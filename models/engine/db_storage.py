@@ -25,16 +25,17 @@ class DBStorage:
         host = os.getenv('HBNB_MYSQL_HOST')
         name = os.getenv('HBNB_MYSQL_DB')
         env = os.getenv('HBNB_ENV')
-        self.__engine = create_engine(f"mysql+mysqldb://{user}:{pwd}@{host}/{name}", pool_pre_ping=True)
+        self.__engine = create_engine(
+            'mysql+mysqldb://{}:{}@{}/{}'
+            .format(user, pwd, host, name), pool_pre_ping=True
+            )
         if env == 'test':
             Base.metadata.drop_all(bind=self.__engine)
-        
 
     def all(self, cls=None):
         from sqlalchemy.orm import sessionmaker
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
-
 
     def close(self):
         """close the session
