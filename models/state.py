@@ -14,4 +14,12 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
-        return self._cities
+            """getter attribute cities that returns the list of City"""
+            from models import storage
+            from models.city import City
+            cities_list = []
+            extracted_cities = storage.all(City).values()
+            for city in extracted_cities:
+                if self.id == city.state_id:
+                    cities_list.append(city)
+            return cities_list
