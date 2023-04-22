@@ -34,3 +34,9 @@ class DBStorage:
         from sqlalchemy.orm import sessionmaker
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
+
+
+    def close(self):
+        """close the session
+        """
+        self.__session.close()
