@@ -12,9 +12,10 @@ def close_database_connection(exception=None):
 
 
 @app.route('/states_list', strict_slashes=False)
-def states_list(n=None):
+def states_list():
     from models.state import State
-    extracted_states = storage.all(State).values()
+    extracted_states = sorted(storage.all(State).values(),
+                              key=lambda s: s.name)
     return render_template('7-states_list.html', states_list=extracted_states)
 
 
